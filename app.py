@@ -5,6 +5,10 @@ import os
 app = Flask(__name__)
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+@app.route("/", methods=["GET"])
+def home():
+    return "✅ سرور OpenRouter روی Railway فعاله!"
+
 @app.route("/ask", methods=["POST"])
 def ask():
     prompt = request.json.get("prompt")
@@ -19,9 +23,7 @@ def ask():
     r = requests.post("https://openrouter.ai/api/v1/chat/completions", json=payload, headers=headers)
     return jsonify(r.json())
 
-@app.route("/", methods=["GET"])
-def home():
-    return "✅ سرور OpenRouter روی Railway فعاله!"
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    # Railway از اینجا می‌فهمه پورتت چیه
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
