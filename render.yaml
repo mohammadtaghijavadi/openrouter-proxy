@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: openrouter-proxy
-    env: python
-    buildCommand: ""
-    startCommand: python app.py
-    plan: free
-    region: frankfurt
